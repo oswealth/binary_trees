@@ -15,10 +15,10 @@
  */
 struct binary_tree_s
 {
-    int n;
-    struct binary_tree_s *parent;
-    struct binary_tree_s *left;
-    struct binary_tree_s *right;
+	int n;
+	struct binary_tree_s *parent;
+	struct binary_tree_s *left;
+	struct binary_tree_s *right;
 };
 
 typedef struct binary_tree_s binary_tree_t;
@@ -31,6 +31,7 @@ typedef struct binary_tree_s binary_tree_t;
  * @left: Pointer to the left child node
  * @right: Pointer to the right child node
  */
+
 typedef struct binary_tree_s bst_t;
 
 /**
@@ -91,7 +92,8 @@ int binary_tree_is_avl(const binary_tree_t *tree);
 /* Relations */
 binary_tree_t *binary_tree_sibling(binary_tree_t *node);
 binary_tree_t *binary_tree_uncle(binary_tree_t *node);
-binary_tree_t *binary_trees_ancestor(const binary_tree_t *first, const binary_tree_t *second);
+binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
+		const binary_tree_t *second);
 
 /* Rotations */
 binary_tree_t *binary_tree_rotate_left(binary_tree_t *tree);
