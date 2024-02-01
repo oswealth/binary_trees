@@ -1,46 +1,65 @@
 #include "binary_trees.h"
 
 /**
- * binary_trees_ancestor - Finds the lowest common ancestor of two nodes.
- * @first: Pointer to the first node.
- * @second: Pointer to the second node.
- * Return: Pointer to the lowest common ancestor node,
- * NULL if no common ancestor was found.
+ * binary_tree_depth - Measures the depth of a node in a binary tree
+ * @tree: Pointer to the node to measure the depth
+ *
+ * Return: The depth of the node, or 0 if tree is NULL
+ */
+size_t binary_tree_depth(const binary_tree_t *tree)
+{
+	size_t depth = 0;
+
+	if (tree == NULL)
+		return (0);
+
+	while (tree->parent != NULL)
+	{
+		depth++;
+		tree = tree->parent;
+	}
+
+	return (depth);
+}
+
+
+/**
+ * binary_trees_ancestor - Finds the lowest common ancestor of two nodes
+ * @first: Pointer to the first node
+ * @second: Pointer to the second node
+ *
+ * Return: Pointer to the lowest common ancestor node, or NULL if none
  */
 binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 		const binary_tree_t *second)
 {
-	const binary_tree_t *ancestor;
+	size_t depth_first, depth_second;
 
 	if (first == NULL || second == NULL)
 		return (NULL);
 
-	ancestor = first;
+	depth_first = binary_tree_depth(first);
+	depth_second = binary_tree_depth(second);
 
-	while (ancestor != NULL)
+	/* Move the deeper node up until both nodes are at the same depth */
+	while (depth_first > depth_second)
 	{
-		if (binary_tree_is_descendant(ancestor, second))
-			return ((binary_tree_t *)ancestor);
-
-	/* Move to the parent of the current ancestor */
-		ancestor = ancestor->parent;
+		first = first->parent;
+		depth_first--;
 	}
 
-	return (NULL);
-}
+	while (depth_second > depth_first)
+	{
+		second = second->parent;
+		depth_second--;
+	}
 
-/**
- * binary_tree_is_descendant - Checks if a node is a descendant of another node
- * @ancestor: Pointer to the potential ancestor node.
- * @node: Pointer to the potential descendant node.
- * Return: 1 if node is a descendant of ancestor, 0 otherwise.
- */
-int binary_tree_is_descendant(const binary_tree_t *ancestor,
-		const binary_tree_t *node)
-{
-	if (node == NULL)
-		return (0);
+	/* Move both nodes up until they meet at the common ancestor */
+	while (first != second)
+	{
+		first = first->parent;
+		second = second->parent;
+	}
 
-	return (node == ancestor || binary_tree_is_descendant(ancestor,
-				node->left) || binary_tree_is_descendant(ancestor, node->right));
+	return ((binary_tree_t *)first);
 }
