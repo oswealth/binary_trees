@@ -29,7 +29,7 @@ queue_node_t *create_queue_node(const binary_tree_t *tree_node)
  * Return: Pointer to the new queue head, or NULL on failure
  */
 queue_node_t *enqueue(queue_node_t **head, queue_node_t **tail,
-                      const binary_tree_t *tree_node)
+		const binary_tree_t *tree_node)
 {
 	queue_node_t *new_node = create_queue_node(tree_node);
 
