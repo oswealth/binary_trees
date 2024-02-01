@@ -24,7 +24,7 @@ binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 
 	/* Move to the parent of the current ancestor */
 		ancestor = ancestor->parent;
-    	}
+	}
 
 	return (NULL);
 }
