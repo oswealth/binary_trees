@@ -7,37 +7,36 @@
  */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-	size_t left_height, right_height;
+	binary_tree_t *l, *r;
 
 	if (tree == NULL)
 		return (0);
-
-	left_height = binary_tree_height(tree->left);
-	right_height = binary_tree_height(tree->right);
-
-	return (binary_tree_is_full(tree) && (left_height == right_height));
-}
-
-
-/**
- * binary_tree_is_full - Helper function to check if a binary tree is full.
- * @tree: Pointer to the root node of the tree to check.
- * Return: 1 if the tree is full, 0 if tree is NULL or not full.
- */
-int binary_tree_is_full(const binary_tree_t *tree)
-{
-	if (tree == NULL)
-		return (0);
-
-	if (tree->left == NULL && tree->right == NULL)
+	l = tree->left;
+	r = tree->right;
+	if (binary_tree_is_leaf(tree))
 		return (1);
-
-	if (tree->left != NULL && tree->right != NULL)
-		return (binary_tree_is_full(tree->left) && binary_tree_is_full(tree->right));
-
+	if (l == NULL || r == NULL)
+		return (0);
+	if (binary_tree_height(l) == binary_tree_height(r))
+	{
+		if (binary_tree_is_perfect(l) && binary_tree_is_perfect(r))
+			return (1);
+	}
 	return (0);
 }
 
+/**
+ * binary_tree_is_leaf - checks if a node is a leaf
+ * @node: pointer to the node to check
+ *
+ * Return: 1 if node is a leaf, and 0 otherwise. If node is NULL, return 0
+ */
+int binary_tree_is_leaf(const binary_tree_t *node)
+{
+	if (node != NULL && node->left == NULL && node->right == NULL)
+		return (1);
+	return (0);
+}
 
 /**
  * binary_tree_height - Helper function to calculate height of a binary tree.
