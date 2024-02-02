@@ -2,40 +2,47 @@
 
 /**
  * bst_insert - Inserts a value in a Binary Search Tree.
- * @tree: Double pointer to the root node of the BST to insert the value.
+ * @tree: A double pointer to the root node of the BST to insert the value.
  * @value: The value to store in the node to be inserted.
- * Return: Pointer to the created node, or NULL on failure or
- * if value already exists.
+ *
+ * Return: A pointer to the created node, or NULL on failure.
  */
 bst_t *bst_insert(bst_t **tree, int value)
 {
-	if (tree == NULL)
-		return (NULL);
+	bst_t *curr, *new;
 
-	return (bst_insert_recursive(tree, NULL, value));
-}
-
-/**
- * bst_insert_recursive - Recursively inserts a value in a Binary Search Tree.
- * @tree: Double pointer to the current node.
- * @parent: Pointer to the parent of the current node.
- * @value: The value to store in the node to be inserted.
- * Return: Pointer to the created node, or NULL on failure or
- * if value already exists.
- */
-bst_t *bst_insert_recursive(bst_t **tree, bst_t *parent, int value)
-{
-	if (*tree == NULL)
+	if (tree != NULL)
 	{
-		*tree = binary_tree_node(parent, value);
-		return (*tree);
+		curr = *tree;
+
+		if (curr == NULL)
+		{
+			new = binary_tree_node(curr, value);
+			if (new == NULL)
+				return (NULL);
+			return (*tree = new);
+		}
+
+		if (value < curr->n) /* insert in left subtree */
+		{
+			if (curr->left != NULL)
+				return (bst_insert(&curr->left, value));
+
+			new = binary_tree_node(curr, value);
+			if (new == NULL)
+				return (NULL);
+			return (curr->left = new);
+		}
+		if (value > curr->n) /* insert in right subtree */
+		{
+			if (curr->right != NULL)
+				return (bst_insert(&curr->right, value));
+
+			new = binary_tree_node(curr, value);
+			if (new == NULL)
+				return (NULL);
+			return (curr->right = new);
+		}
 	}
-
-	if (value < (*tree)->n)
-		return (bst_insert_recursive(&(*tree)->left, *tree, value));
-	else if (value > (*tree)->n)
-		return (bst_insert_recursive(&(*tree)->right, *tree, value));
-
-	/* Value already exists, return NULL */
 	return (NULL);
 }
