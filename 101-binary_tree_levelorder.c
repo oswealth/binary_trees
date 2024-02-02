@@ -1,5 +1,7 @@
 #include "binary_trees.h"
 
+void binary_tree_level(const binary_tree_t *tree, size_t l, void (*func)(int));
+
 /**
  * binary_tree_level - perform a function on a specific level of a binary tree
  * @tree: pointer to the root of the tree
