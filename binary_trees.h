@@ -55,18 +55,16 @@ typedef struct binary_tree_s avl_t;
 typedef struct binary_tree_s heap_t;
 
 
-
 /**
- * struct queue_node - A node for a queue data structure
- * @tree_node: Pointer to the binary tree node
- * @next: Pointer to the next queue node
+ * struct levelorder_queue_s - Level order traversal queue.
+ * @node: A node of a binary tree.
+ * @next: The next node to traverse to in the binary tree.
  */
-typedef struct queue_node
+typedef struct levelorder_queue_s
 {
-        const binary_tree_t *tree_node;
-        struct queue_node *next;
-} queue_node_t;
-
+	binary_tree_t *node;
+	struct levelorder_queue_s *next;
+} levelorder_queue_t;
 
 
 /* Print function */
@@ -134,9 +132,11 @@ int heap_extract(heap_t **root);
 int *heap_to_sorted_array(heap_t *heap, size_t *size);
 
 
-queue_node_t *create_queue_node(const binary_tree_t *tree_node);
-queue_node_t *enqueue(queue_node_t **head, queue_node_t **tail,
-		const binary_tree_t *tree_node);
-const binary_tree_t *dequeue(queue_node_t **head, queue_node_t **tail);
-void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int));
+levelorder_queue_t *create_node(binary_tree_t *node);
+void free_queue(levelorder_queue_t *head);
+void push(binary_tree_t *node, levelorder_queue_t *head,
+                levelorder_queue_t **tail);
+void pop(levelorder_queue_t **head);
+int binary_tree_is_complete(const binary_tree_t *tree);
+
 #endif /* BINARY_TREES_H */
