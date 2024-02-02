@@ -1,22 +1,6 @@
 #include "binary_trees.h"
 
 /**
- * struct node_s - singly linked list
- * @node: const binary tree node
- * @next: points to the next node
- */
-typedef struct node_s
-{
-	const binary_tree_t *node;
-	struct node_s *next;
-} ll;
-
-ll *append(ll *head, const binary_tree_t *btnode);
-void free_list(ll *head);
-ll *get_children(ll *head, const binary_tree_t *parent);
-void levels_rec(ll *head, void (*func)(int));
-
-/**
  * binary_tree_levelorder - Goes through a binary tree
  *                          using level-order traversal.
  * @tree: Pointer to the root node of the tree to traverse.
@@ -24,7 +8,7 @@ void levels_rec(ll *head, void (*func)(int));
  */
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 {
-	ll *children = NULL;
+	all *children = NULL;
 
 	func(tree->n);
 	children = get_children(children, tree);
@@ -38,9 +22,9 @@ void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
  * @head: Pointer to head of linked list with nodes at one level.
  * @func: Pointer to a function to call for each node.
  */
-void levels_rec(ll *head, void (*func)(int))
+void levels_rec(all *head, void (*func)(int))
 {
-	ll *children = NULL, *curr = NULL;
+	all *children = NULL, *curr = NULL;
 
 	if (!head)
 		return;
@@ -59,7 +43,7 @@ void levels_rec(ll *head, void (*func)(int))
  * @parent: Pointer to node whose children we want to append.
  * Return: Pointer to head of linked list of children.
  */
-ll *get_children(ll *head, const binary_tree_t *parent)
+all *get_children(all *head, const binary_tree_t *parent)
 {
 	if (parent->left)
 		head = append(head, parent->left);
@@ -74,9 +58,9 @@ ll *get_children(ll *head, const binary_tree_t *parent)
  * @btnode: const binary tree node to append
  * Return: pointer to head, or NULL on failure
  */
-ll *append(ll *head, const binary_tree_t *btnode)
+all *append(all *head, const binary_tree_t *btnode)
 {
-	ll *new = NULL, *last = NULL;
+	all *new = NULL, *last = NULL;
 
 	new = malloc(sizeof(*new));
 	if (new)
@@ -100,9 +84,9 @@ ll *append(ll *head, const binary_tree_t *btnode)
  * free_list - frees all the nodes in a linked list
  * @head: pointer to the head of list_t linked list
  */
-void free_list(ll *head)
+void free_list(all *head)
 {
-	ll *ptr = NULL;
+	all *ptr = NULL;
 
 	while (head)
 	{

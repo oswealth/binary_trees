@@ -67,6 +67,23 @@ typedef struct levelorder_queue_s
 } levelorder_queue_t;
 
 
+/**
+ * struct node_s - singly linked list
+ * @node: const binary tree node
+ * @next: points to the next node
+ */
+typedef struct node_s
+{
+        const binary_tree_t *node;
+        struct node_s *next;
+} all;
+
+all *append(all *head, const binary_tree_t *btnode);
+void free_list(all *head);
+all *get_children(all *head, const binary_tree_t *parent);
+void levels_rec(all *head, void (*func)(int));
+
+
 /* Print function */
 void binary_tree_print(const binary_tree_t *tree);
 
